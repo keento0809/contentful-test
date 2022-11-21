@@ -15,9 +15,7 @@ function App() {
       {authors.map((author, index) => {
         return <AuthorCard key={index} author={author} />;
       })}
-      <a href={resumeUrl && resumeUrl} target="_blank" rel="noopener">
-        Resume
-      </a>
+      <a href={resumeUrl && resumeUrl}>Resume</a>
     </div>
   );
 }
