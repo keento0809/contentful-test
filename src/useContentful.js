@@ -13,7 +13,6 @@ const useContentful = () => {
         content_type: "author",
         select: "fields",
       });
-      console.log(entries);
       const sanitizedEntries = entries.items.map((item) => {
         const avatar = item.fields.avatar.fields;
         return {
@@ -26,7 +25,20 @@ const useContentful = () => {
       console.log(`Error fetching authors: ${error}`);
     }
   };
-  return { getAuthors };
+  const getResume = async () => {
+    try {
+      const entry = await client.getEntries({
+        content_type: "resume",
+        select: "fields",
+      });
+      const resumeUrl =
+        "https:" + entry.items[0].fields.myResume.fields.file.url;
+      return resumeUrl;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  return { getAuthors, getResume };
 };
 
 export default useContentful;

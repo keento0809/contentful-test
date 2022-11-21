@@ -4,15 +4,20 @@ import useContentful from "./useContentful";
 
 function App() {
   const [authors, setAuthors] = useState([]);
-  const { getAuthors } = useContentful();
+  const [resumeUrl, setResumeUrl] = useState("");
+  const { getAuthors, getResume } = useContentful();
   useEffect(() => {
     getAuthors().then((response) => setAuthors(response));
+    getResume().then((response) => setResumeUrl(response));
   }, []);
   return (
     <div className="App">
       {authors.map((author, index) => {
         return <AuthorCard key={index} author={author} />;
       })}
+      <a href={resumeUrl && resumeUrl} target="_blank">
+        Resume
+      </a>
     </div>
   );
 }
