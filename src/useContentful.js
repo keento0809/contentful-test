@@ -38,7 +38,31 @@ const useContentful = () => {
       console.log(error);
     }
   };
-  return { getAuthors, getResume };
+  const getImages = async () => {
+    try {
+      const entries = await client.getEntries(
+        {
+          content_type: "thumbnail",
+          select: "fields",
+        }
+        // JSON.stringify({
+        //   content_type: "thumbnail",
+        //   select: "fields",
+        // })
+      );
+      console.log(entries.items);
+      const imageUrl = "https:" + entries.items[0].fields.img.fields.file.url;
+      const sanitizedEntries = entries.items.map((item) => {
+        const image = item.fields.img.fields.file.url;
+        return image;
+      });
+      return sanitizedEntries;
+      return imageUrl;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  return { getAuthors, getResume, getImages };
 };
 
 export default useContentful;
