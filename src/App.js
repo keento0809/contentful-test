@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import AuthorCard from "./AuthorCard";
 import useContentful from "./useContentful";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 
 function App() {
   const [authors, setAuthors] = useState([]);
@@ -23,7 +24,13 @@ function App() {
           images.map((image) => {
             return (
               <div>
-                <img src={image} style={{ width: "20%" }} alt="picture" />
+                <LazyLoadImage
+                  src={image}
+                  style={{ width: "20%", height: "auto" }}
+                  alt="picture"
+                  effect="blur"
+                />
+                {/* <img src={image} style={{ width: "20%" }} alt="picture" /> */}
               </div>
             );
           })}
